@@ -1,0 +1,1 @@
+sudo dd if=installer/iso/nixos-25.05.20250313.6607cf7-aarch64-linux.iso of=/dev/sda status=progress
