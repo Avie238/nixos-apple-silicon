@@ -1,9 +1,15 @@
 # configuration that is specific to the ISO
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ./installer-configuration.nix
     ../apple-silicon-support
+    ./network.nix
   ];
 
   # include those modules so the user can rebuild the install iso. that's not
