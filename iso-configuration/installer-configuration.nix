@@ -102,8 +102,7 @@
     dotfilesclone = "git clone https://github.com/Avie238/dotfiles";
     formatnixos = "mkfs.ext4 -L nixos /dev/disk/by-label/nixos";
     install = "nixos-install --flake ./dotfiles#avie-nixos";
-    mount = "mount /dev/disk/by-label/nixos /mnt && mkdir -p /mnt/boot && mount /dev/disk/by-label/EFI\\x20-\\x20NIXOS /mnt/boot"
-
+    mount = "mount /dev/disk/by-label/nixos /mnt && mkdir -p /mnt/boot && mount /dev/disk/by-label/EFI\\x20-\\x20NIXOS /mnt/boot";
   };
 
   nixpkgs.overlays = [
