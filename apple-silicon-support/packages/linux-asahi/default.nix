@@ -15,9 +15,9 @@
       inherit stdenv lib;
 
       pname = "linux-asahi";
-      version = "6.17.12";
+      version = "master";
       modDirVersion = version;
-      extraMeta.branch = "6.17";
+      extraMeta.branch = "fairydust";
 
       src = fetchFromGitHub {
         owner = "AsahiLinux";
