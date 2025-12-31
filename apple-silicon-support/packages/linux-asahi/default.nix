@@ -22,7 +22,7 @@
       src = fetchFromGitHub {
         owner = "AsahiLinux";
         repo = "linux";
-        tag = "21a493172ce13c95df12b42faddfca515388d80c";
+        rev = "21a493172ce13c95df12b42faddfca515388d80c";
         hash = "";
       };
 
