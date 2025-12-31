@@ -23,7 +23,7 @@
         owner = "AsahiLinux";
         repo = "linux";
         rev = "21a493172ce13c95df12b42faddfca515388d80c";
-        hash = "";
+        hash = "sha256-UCQs+VYIWZMYiizkLWdPjSipBuOB1ahZx2oy5VuEjPI=";
       };
 
       kernelPatches =
