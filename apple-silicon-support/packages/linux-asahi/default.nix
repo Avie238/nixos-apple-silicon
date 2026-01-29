@@ -2,18 +2,15 @@
   lib,
   callPackage,
   linuxPackagesFor,
-  _kernelPatches ? [ ],
-}:
-
-let
-  linux-asahi-pkg =
-    {
-      stdenv,
-      lib,
-      fetchFromGitHub,
-      buildLinux,
-      ...
-    }:
+  _kernelPatches ? [],
+}: let
+  linux-asahi-pkg = {
+    stdenv,
+    lib,
+    fetchFromGitHub,
+    buildLinux,
+    ...
+  }:
     buildLinux rec {
       inherit stdenv lib;
 
@@ -25,39 +22,40 @@ let
       src = fetchFromGitHub {
         owner = "AsahiLinux";
         repo = "linux";
-        tag = "asahi-6.18.7-1";
-        hash = "sha256-YjpYBh6YDU4qDKfYK6ESnpJ4chvfUa3o5+iAnSjBTNo=";
+        tag = "b0b5bbf9f67e9063af591e7a1187d37d0f2b8e291";
+        hash = "";
       };
 
-      kernelPatches = [
-        {
-          name = "Asahi config";
-          patch = null;
-          structuredExtraConfig = with lib.kernel; {
-            # Needed for GPU
-            ARM64_16K_PAGES = yes;
+      kernelPatches =
+        [
+          {
+            name = "Asahi config";
+            patch = null;
+            structuredExtraConfig = with lib.kernel; {
+              # Needed for GPU
+              ARM64_16K_PAGES = yes;
 
-            ARM64_MEMORY_MODEL_CONTROL = yes;
-            ARM64_ACTLR_STATE = yes;
+              ARM64_MEMORY_MODEL_CONTROL = yes;
+              ARM64_ACTLR_STATE = yes;
 
-            # Might lead to the machine rebooting if not loaded soon enough
-            APPLE_WATCHDOG = yes;
+              # Might lead to the machine rebooting if not loaded soon enough
+              APPLE_WATCHDOG = yes;
 
-            # Can not be built as a module, defaults to no
-            APPLE_M1_CPU_PMU = yes;
+              # Can not be built as a module, defaults to no
+              APPLE_M1_CPU_PMU = yes;
 
-            # Defaults to 'y', but we want to allow the user to set options in modprobe.d
-            HID_APPLE = module;
+              # Defaults to 'y', but we want to allow the user to set options in modprobe.d
+              HID_APPLE = module;
 
-            APPLE_PMGR_MISC = yes;
-            APPLE_PMGR_PWRSTATE = yes;
-          };
-          features.rust = true;
-        }
-      ]
-      ++ _kernelPatches;
+              APPLE_PMGR_MISC = yes;
+              APPLE_PMGR_PWRSTATE = yes;
+            };
+            features.rust = true;
+          }
+        ]
+        ++ _kernelPatches;
     };
 
-  linux-asahi = callPackage linux-asahi-pkg { };
+  linux-asahi = callPackage linux-asahi-pkg {};
 in
-lib.recurseIntoAttrs (linuxPackagesFor linux-asahi)
+  lib.recurseIntoAttrs (linuxPackagesFor linux-asahi)
